@@ -7,9 +7,9 @@
 \RequirePackage{empheq}
 \RequirePackage{environ}
 
+\newcounter{ConsNum}
 % Environment for optimization problem
 \NewEnviron{optim}{%
-  \newcounter{ConsNum}
   \setcounter{ConsNum}{0}
   \begin{subequations}
     \begin{empheq}[left=\empheqlbrace\;]{alignat=2}
@@ -18,7 +18,6 @@
   \end{subequations}
 }
 \NewEnviron{optim*}{%
-  \newcounter{ConsNum}
   \setcounter{ConsNum}{0}
   \begin{empheq}[left=\empheqlbrace\;]{alignat*=2}
     \BODY

@@ -9,6 +9,7 @@
 \begin{document}
 \maketitle
 
+\section{Optimization}
 \lipsum[1]
 \begin{optim}
   \setObj{\min}{x}{cx}
@@ -19,5 +20,19 @@
   \addInclCons{x}{\mathbb{Z}}
 \end{optim}
 \lipsum[2]
+
+\section{Bilevel optimization}
+
+A standard optimistic bilevel optimization problem is written as
+\begin{optim*}
+  \setObj{\min}{x,y}{F(x,y)}
+  \addLbCons{x}{0}
+  \addInclCons{y}{S(x)}
+\end{optim*}
+where
+\begin{align*}
+  S(x) := {\arg\min}_{\tilde{y}} \{ f(x,\tilde{y}) \mid \tilde{y} \in C \}.
+\end{align*}
+
 
 \end{document}
