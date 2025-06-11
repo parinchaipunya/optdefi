@@ -3,6 +3,7 @@
 !*.tex
 !*.sty
 !*.bib
+!*.md
 
 !*.eps
 !*.jpg
