@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{lipsum}
+\usepackage{optdefi}
+
+\title{The {\ttfamily optdefi} package}
+\author{Parin Chaipunya}
+
+\begin{document}
+\maketitle
+
+\lipsum[1]
+\begin{optim}
+  \setObj{\min}{x}{cx}
+  \addEqCons{a_{1}x}{b_{1}}
+  \addEqCons{a_{2}x}{b_{2}}
+  \addIneqCons{a_{3}x}{b_{3}}
+  \addLbCons{x}{0}
+  \addInclCons{x}{\mathbb{Z}}
+\end{optim}
+\lipsum[2]
+
+\end{document}

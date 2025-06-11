@@ -1,0 +1,60 @@
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{optproblem}[2025/06/11 optimization problem definition]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{empheq}
+\RequirePackage{environ}
+
+% Environment for optimization problem
+\NewEnviron{optim}{%
+  \newcounter{ConsNum}
+  \setcounter{ConsNum}{0}
+  \begin{subequations}
+    \begin{empheq}[left=\empheqlbrace\;]{alignat=2}
+      \BODY
+    \end{empheq}
+  \end{subequations}
+}
+\NewEnviron{optim*}{%
+  \newcounter{ConsNum}
+  \setcounter{ConsNum}{0}
+  \begin{empheq}[left=\empheqlbrace\;]{alignat*=2}
+    \BODY
+  \end{empheq}
+}
+
+\newcommand{\subjto}{\mathrm{s.t.}}
+
+% \setObj{sense}{var}{Obj}
+\newcommand{\setObj}[3]{%
+  {#1_{#2}} \quad & #3 \\
+  \subjto \quad 
+}
+\newcommand{\addEqCons}[2]{%
+  \ifnum\value{ConsNum}>0 \\ \fi
+  & {#1} = {#2}
+  \addtocounter{ConsNum}{1}
+}
+\newcommand{\addIneqCons}[2]{%
+  \ifnum\value{ConsNum}>0 \\ \fi
+  & {#1} \leq {#2}
+  \addtocounter{ConsNum}{1}
+}
+\newcommand{\addLbCons}[2]{%
+  \ifnum\value{ConsNum}>0 \\ \fi
+  & {#1} \geq {#2}
+  \addtocounter{ConsNum}{1}
+}
+% \addBddCons{x}{a}{b} -> a \leq x \leq b
+\newcommand{\addBddCons}[3]{%
+  \ifnum\value{ConsNum}>0 \\ \fi
+  & {#2} \leq {#1} \leq {#3}
+  \addtocounter{ConsNum}{1}
+}
+\newcommand{\addInclCons}[2]{%
+  \ifnum\value{ConsNum}>0 \\ \fi
+  & {#1} \in {#2}
+  \addtocounter{ConsNum}{1}
+}
