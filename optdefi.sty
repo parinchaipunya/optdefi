@@ -9,6 +9,7 @@
 \RequirePackage{environ}
 
 \newcounter{ConsNum}
+
 % Environment for optimization problem
 \NewEnviron{optim}{%
   \setcounter{ConsNum}{0}
@@ -25,36 +26,42 @@
   \end{empheq}
 }
 
+
+% Some commands
+\DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator{\subjto}{s.t.}
+\newcommand{\st}{\\ \subjto \quad }
+\newcommand{\chk}{\ifnum\value{ConsNum}>0 \\ \else \st \fi}
 
 % \setObj{sense}{var}{Obj}
 \newcommand{\setObj}[3]{%
-  {#1_{#2}} \quad & #3 \\
-  \subjto \quad 
+  {#1_{#2}} \quad & #3 %
+  % \\
+  % \subjto \quad 
 }
 \newcommand{\addEqCons}[2]{%
-  \ifnum\value{ConsNum}>0 \\ \fi
+  \chk
   & {#1} = {#2}
   \addtocounter{ConsNum}{1}
 }
 \newcommand{\addIneqCons}[2]{%
-  \ifnum\value{ConsNum}>0 \\ \fi
+  \chk
   & {#1} \leq {#2}
   \addtocounter{ConsNum}{1}
 }
 \newcommand{\addLbCons}[2]{%
-  \ifnum\value{ConsNum}>0 \\ \fi
+  \chk
   & {#1} \geq {#2}
   \addtocounter{ConsNum}{1}
 }
 % \addBddCons{x}{a}{b} -> a \leq x \leq b
 \newcommand{\addBddCons}[3]{%
-  \ifnum\value{ConsNum}>0 \\ \fi
+  \chk
   & {#2} \leq {#1} \leq {#3}
   \addtocounter{ConsNum}{1}
 }
 \newcommand{\addInclCons}[2]{%
-  \ifnum\value{ConsNum}>0 \\ \fi
+  \chk
   & {#1} \in {#2}
   \addtocounter{ConsNum}{1}
 }
