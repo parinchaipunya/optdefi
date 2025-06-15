@@ -8,6 +8,7 @@
 \RequirePackage{empheq}
 \RequirePackage{environ}
 
+\newcommand*\centermathcell[1]{\omit\hfil$\displaystyle#1$\hfil\ignorespaces}
 \newcounter{ConsNum}
 
 % Environment for optimization problem
@@ -30,7 +31,7 @@
 % Some commands
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator{\subjto}{s.t.}
-\newcommand{\Subjto}{\\ \subjto \quad }
+\newcommand{\Subjto}{\\ \centermathcell{\subjto} \quad }
 \newcommand{\chk}{\ifnum\value{ConsNum}>0 \\ \else \Subjto \fi}
 
 % \setObj{sense}{var}{Obj}
@@ -38,6 +39,11 @@
   {#1_{#2}} \quad & #3 %
   % \\
   % \subjto \quad 
+}
+\newcommand{\addCons}[1]{%
+  \chk
+  & {#1}
+  \addtocounter{ConsNum}{1}
 }
 \newcommand{\addEqCons}[2]{%
   \chk
