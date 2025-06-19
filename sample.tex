@@ -25,7 +25,7 @@
 
 A standard optimistic bilevel optimization problem is written as
 \begin{optim*}
-  \setObj{\min}{x,y}{F(x,y)}
+  \setObj{\min \big/ \max}{x,y}{F(x,y)}
   \addLbCons{x}{0}
   \addInclCons{y}{S(x)}
 \end{optim*}

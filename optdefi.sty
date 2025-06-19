@@ -8,7 +8,8 @@
 \RequirePackage{empheq}
 \RequirePackage{environ}
 
-\newcommand*\centermathcell[1]{\omit\hfil$\displaystyle#1$\hfil\ignorespaces}
+% \newcommand*{\centermathcell}[1]{\omit\hfill$\displaystyle#1$\hfill\ignorespaces}
+\newcommand{\centermathcell}[1]{#1}
 \newcounter{ConsNum}
 
 % Environment for optimization problem
