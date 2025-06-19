@@ -11,6 +11,7 @@
 
 % \newcommand*{\centermathcell}[1]{\omit\hfill$\displaystyle#1$\hfill\ignorespaces}
 % \newcommand{\centermathcell}[1]{\eqmakebox[op][c]{#1}}
+\newcounter{OptEnv}
 \newcounter{ConsNum}
 
 % Environment for optimization problem
@@ -21,12 +22,14 @@
       \BODY
     \end{empheq}
   \end{subequations}
+  \addtocounter{OptEnv}{1}
 }
 \NewEnviron{optim*}{%
   \setcounter{ConsNum}{0}
   \begin{empheq}[left=\empheqlbrace\;]{alignat*=2}
     \BODY
   \end{empheq}
+  \addtocounter{OptEnv}{1}
 }
 
 
@@ -34,12 +37,12 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\minormax}{\min \big/ \max}
 \newcommand{\subjto}{\mathsf{s.t.}}
-\newcommand{\Subjto}{\\ \eqmakebox[op][c]{$\subjto$} \quad }
+\newcommand{\Subjto}{\\ \eqmakebox[OE\arabic{OptEnv}][c]{$\subjto$} \quad }
 \newcommand{\chk}{\ifnum\value{ConsNum}>0 \\ \else \Subjto \fi}
 
 % \setObj{sense}{var}{Obj}
 \newcommand{\setObj}[3]{%
-  \eqmakebox[op][c]{$\displaystyle #1_{#2}$} \quad & #3 %
+  \eqmakebox[OE\arabic{OptEnv}][c]{$\displaystyle #1_{#2}$} \quad & #3 %
   % \\
   % \subjto \quad 
 }
