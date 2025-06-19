@@ -12,30 +12,24 @@
 \section{Optimization}
 \lipsum[1]
 \begin{optim}
-  \setObj{\min}{x}{cx}
+  \setObj{\min}{x}{cx} \label{Obj}
   \addEqCons{a_{1}x}{b_{1}}
   \addEqCons{a_{2}x}{b_{2}}
   \addIneqCons{a_{3}x}{b_{3}}
   \addLbCons{x}{0}
-  \addInclCons{x}{\mathbb{Z}}
-\end{optim}
-\lipsum[2]
+  \addInclCons{x}{\mathbb{Z}}. \label{lastCons}
+\end{optim}\label{optsystem}
+This is the whole system \eqref{optsystem}, and \eqref{Obj} is the objective function, while \eqref{lastCons} is the last constraint.
 
 \section{Bilevel optimization}
 
 A standard optimistic bilevel optimization problem is written as
 \begin{optim*}
-  \setObj{\min \big/ \max}{x,y}{F(x,y)}
+  \setObj{\minormax}{x,y}{F(x,y)}
   \addLbCons{x}{0}
-  \addInclCons{y}{S(x)}
+  \addInclCons{y}{S(x)}.
 \end{optim*}
-where
-\begin{align*}
-  S(x) &:= \argmin_{\tilde{y}} \{ f(x,\tilde{y}) \mid \tilde{y} \in C \}
-  \intertext{and}
-  C &:= \left\{%
-  \right\}
-\end{align*}
+
 
 
 

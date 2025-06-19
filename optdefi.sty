@@ -6,10 +6,11 @@
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{empheq}
+\RequirePackage{eqparbox}
 \RequirePackage{environ}
 
 % \newcommand*{\centermathcell}[1]{\omit\hfill$\displaystyle#1$\hfill\ignorespaces}
-\newcommand{\centermathcell}[1]{#1}
+% \newcommand{\centermathcell}[1]{\eqmakebox[op][c]{#1}}
 \newcounter{ConsNum}
 
 % Environment for optimization problem
@@ -31,13 +32,13 @@
 
 % Some commands
 \DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator{\subjto}{s.t.}
-\newcommand{\Subjto}{\\ \centermathcell{\subjto} \quad }
+\DeclareMathOperator*{\minormax}{\min \big/ \max}
+\newcommand{\Subjto}{\\ \eqmakebox[op][c]{s.t.} \quad }
 \newcommand{\chk}{\ifnum\value{ConsNum}>0 \\ \else \Subjto \fi}
 
 % \setObj{sense}{var}{Obj}
 \newcommand{\setObj}[3]{%
-  {#1_{#2}} \quad & #3 %
+  \eqmakebox[op][c]{$\displaystyle #1_{#2}$} \quad & #3 %
   % \\
   % \subjto \quad 
 }
