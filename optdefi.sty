@@ -17,11 +17,9 @@
 % Environment for optimization problem
 \NewEnviron{optim}{%
   \setcounter{ConsNum}{0}
-  \begin{subequations}
     \begin{empheq}[left=\empheqlbrace\;]{alignat=2}
       \BODY
     \end{empheq}
-  \end{subequations}
   \addtocounter{OptEnv}{1}
 }
 \NewEnviron{optim*}{%
