@@ -16,18 +16,20 @@
 
 % Environment for optimization problem
 \NewEnviron{optim}{%
+  \stepcounter{OptEnv}
   \setcounter{ConsNum}{0}
     \begin{empheq}[left=\empheqlbrace\;]{alignat=2}
       \BODY
     \end{empheq}
-  \addtocounter{OptEnv}{1}
+  % \addtocounter{OptEnv}{1}
 }
 \NewEnviron{optim*}{%
+  \stepcounter{OptEnv}
   \setcounter{ConsNum}{0}
   \begin{empheq}[left=\empheqlbrace\;]{alignat*=2}
     \BODY
   \end{empheq}
-  \addtocounter{OptEnv}{1}
+  % \addtocounter{OptEnv}{1}
 }
 \NewEnviron{optimunc}{%
   \begin{align}
@@ -43,6 +45,7 @@
 
 % Some commands
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\minormax}{\min \big/ \max}
 \newcommand{\subjto}{\small\text{s.t.}}
 \newcommand{\Subjto}{\\ \eqmakebox[OE\arabic{OptEnv}][c]{$\subjto$} \quad }
