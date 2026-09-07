@@ -1,7 +1,7 @@
 % Developed by Parin Chaipunya, KMUTT.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{optproblem}[2025/06/11 optimization problem definition]
+\ProvidesPackage{optproblem}[2026/04/03 optimization problem definition]
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
@@ -9,82 +9,108 @@
 \RequirePackage{eqparbox}
 \RequirePackage{environ}
 
-% \newcommand*{\centermathcell}[1]{\omit\hfill$\displaystyle#1$\hfill\ignorespaces}
-% \newcommand{\centermathcell}[1]{\eqmakebox[op][c]{#1}}
 \newcounter{OptEnv}
 \newcounter{ConsNum}
 
-% Environment for optimization problem
+% --- Alignment Toggle Logic ---
+\newif\ifalignrel
+\alignrelfalse % Default: Left-aligned
+
+% Internal command to handle the alignment tabs
+% We define this as a macro that expands to either one or two tabs
+\newcommand{\@opt@tab}{&}
+
+% User commands to switch modes
+\newcommand{\alignrelations}{%
+  \alignreltrue
+  \renewcommand{\@opt@tab}{&&}%
+}
+\newcommand{\alignleft}{%
+  \alignrelfalse
+  \renewcommand{\@opt@tab}{}%
+}
+
+% --- Environments ---
 \NewEnviron{optim}{%
   \stepcounter{OptEnv}
   \setcounter{ConsNum}{0}
-    \begin{empheq}[left=\empheqlbrace\;]{alignat=2}
-      \BODY
-    \end{empheq}
-  % \addtocounter{OptEnv}{1}
+  \begin{empheq}[left=\empheqlbrace\;]{alignat=4}
+    \BODY
+  \end{empheq}
 }
+
 \NewEnviron{optim*}{%
   \stepcounter{OptEnv}
   \setcounter{ConsNum}{0}
-  \begin{empheq}[left=\empheqlbrace\;]{alignat*=2}
+  \begin{empheq}[left=\empheqlbrace\;]{alignat*=4}
     \BODY
   \end{empheq}
-  % \addtocounter{OptEnv}{1}
 }
+
 \NewEnviron{optimunc}{%
   \begin{align}
     \BODY
   \end{align}
 }
+
 \NewEnviron{optimunc*}{%
   \begin{align*}
     \BODY
   \end{align*}
 }
 
-
-% Some commands
+% --- Operators and Labels ---
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\minormax}{\min \big/ \max}
+
 \newcommand{\subjto}{\small\text{s.t.}}
 \newcommand{\Subjto}{\\ \eqmakebox[OE\arabic{OptEnv}][c]{$\subjto$} \quad }
 \newcommand{\chk}{\ifnum\value{ConsNum}>0 \\ \else \Subjto \fi}
 
-% \setObj{sense}{var}{Obj}
+% --- Core Commands ---
 \newcommand{\setObj}[3]{%
-  \eqmakebox[OE\arabic{OptEnv}][c]{$\displaystyle #1_{#2}$} \quad & #3 %
-  % \\
-  % \subjto \quad 
+  \eqmakebox[OE\arabic{OptEnv}][c]{$\displaystyle #1_{#2}$} \quad & #3 
 }
+
 \newcommand{\addCons}[1]{%
   \chk
   & {#1}
   \addtocounter{ConsNum}{1}
 }
+
 \newcommand{\addEqCons}[2]{%
   \chk
-  & {#1} = {#2}
+  & {#1} \@opt@tab = {#2}
   \addtocounter{ConsNum}{1}
 }
+
 \newcommand{\addIneqCons}[2]{%
   \chk
-  & {#1} \leq {#2}
+  & {#1} \@opt@tab \leq {#2}
   \addtocounter{ConsNum}{1}
 }
+
 \newcommand{\addLbCons}[2]{%
   \chk
-  & {#1} \geq {#2}
+  & {#1} \@opt@tab \geq {#2}
   \addtocounter{ConsNum}{1}
 }
-% \addBddCons{x}{a}{b} -> a \leq x \leq b
+
+\newcommand{\addInclCons}[2]{%
+  \chk
+  & {#1} \@opt@tab \in {#2}
+  \addtocounter{ConsNum}{1}
+}
+
 \newcommand{\addBddCons}[3]{%
   \chk
   & {#2} \leq {#1} \leq {#3}
   \addtocounter{ConsNum}{1}
 }
-\newcommand{\addInclCons}[2]{%
+
+\newcommand{\addvdots}{%
   \chk
-  & {#1} \in {#2}
+  & {} \@opt@tab \;\, \vdots {}
   \addtocounter{ConsNum}{1}
 }
